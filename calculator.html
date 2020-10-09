@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+	<head>
+			<style>
+					.center {
+						display: block;
+						margin-left: auto;
+						margin-right: auto;
+				
+					}
+			</style>
+
+	</head>
+	
+	<body>
+        <br>
+ 	<fieldset class="center" style="width: 208px; border: 4px solid grey " >  
+			<legend>Calculator</legend>	 
+			<br>   
+         <input type="text" id='x'  >                    
+        <br> <br>
+		
+		
+				
+		
+				<input type="button" value=" 7 " onclick="document.getElementById('x').value+=7">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" 8 " onclick="document.getElementById('x').value+=8">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" 9 " onclick="document.getElementById('x').value+=9">	&nbsp;&nbsp;&nbsp;	&nbsp;
+                <input  type="button" value=" ÷" onclick="document.getElementById('x').value+= '/'; check()">	
+                
+                <br><br>
+	
+				
+				<input type="button" value=" 4 " onclick="document.getElementById('x').value+=4">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" 5 " onclick="document.getElementById('x').value+=5">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" 6 " onclick="document.getElementById('x').value+=6">	&nbsp;&nbsp;&nbsp;	&nbsp;
+                <input  type="button" value=" ×" onclick="document.getElementById('x').value+='*'; check()">	
+                <br><br>
+
+                
+				<input type="button" value=" 1 " onclick="document.getElementById('x').value+=1">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" 2 " onclick="document.getElementById('x').value+=2">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" 3 " onclick="document.getElementById('x').value+=3">	&nbsp;&nbsp;&nbsp;	&nbsp;
+                <input  type="button" value=" - " onclick="document.getElementById('x').value+= '-'; check()">	
+		
+               
+                <br><br>
+                <input type="button" value=" 0 " onclick="document.getElementById('x').value+=0">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				<input  type="button" value=" .  " onclick="document.getElementById('x').value+= '.'">  &nbsp;&nbsp;&nbsp;	&nbsp;
+				 <input  type="button" value="         +        " onclick="document.getElementById('x').value+= '+'; check()">	
+		
+               
+				<br><br>
+				<input  type="button" value="CE" onclick="runn.clrall()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input  type="button" value="← " onclick="runn.clr()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input  type="button" value="         =        " onclick="demo()">	
+	</fieldset>
+	</body>
+	
+	<script>
+
+		runn=new evaluate();
+
+		function evaluate(valuee){
+			this.valuee=valuee;
+
+		}
+
+		evaluate.prototype.cal=function(){
+		
+			document.getElementById('x').value=eval(this.valuee);
+		
+
+		}
+		
+		evaluate.prototype.clr=function(){
+		
+				f=document.getElementById('x').value;
+				document.getElementById('x').value= f.substr(0,f.length-1)
+			
+		}
+		
+		evaluate.prototype.clrall=function(){
+		
+		document.getElementById('x').value=""
+		
+	
+}
+
+		function demo(){
+			ff=document.getElementById('x').value
+			runn=new evaluate(ff);
+			runn.cal();
+	}
+		
+		function check(){
+			
+			f=document.getElementById('x').value;
+			g=f.split("")
+			l=g[g.length-1]
+			sl=g[g.length-2]
+			
+			
+			
+			patt= /^[+-/*]?$/
+			if(l.match(patt) && sl.match(patt)){
+			document.getElementById('x').value=f.substr(0,f.length-2)+f.substr(f.length-1,f.length)
+		}
+		
+		
+	}	
+
+	</script>
+</html>

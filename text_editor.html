@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+	<head>
+			<style>
+					.center {
+						display: block;
+						margin-left: auto;
+						margin-right: auto;
+						width:50%;
+					}
+			</style>
+
+	</head>
+	
+	<body >
+		<br>
+ 	<fieldset class="center" >                          
+		<legend>Edit Tools</legend>	
+		
+			Font Style:
+				<input type="button" value="B" onclick="bold()">
+				<input  type="button" value="I" onclick="italic()">
+				<input  type="button" value="U" onclick="u_line()">	
+		
+				&nbsp;&nbsp;&nbsp;	&nbsp;
+	
+			Font Family:
+				<select id= "ffamily" onchange="demo()">
+					<option>Select Font Family</option>
+				</select>
+					
+				&nbsp;&nbsp;&nbsp;&nbsp;
+		
+			Font Size:
+		
+				<select id= "fsize" onchange="demo()">
+				<option>Select Font Size</option>	
+				</select>
+				
+				<br><br>
+		
+			Font Color:
+			
+				<select id= "fcolor" onchange="demo()">
+					<option>Select Font Color</option>
+				</select>
+			
+				&nbsp;
+				or			
+				&nbsp;
+
+			Font Color Code: #
+				
+				<input type="text" id="fcc" onblur="color_code()" >
+		
+				
+				<br><br>
+			
+
+				Font Case:
+				<input type="button" value="AA" onclick="u_case()">
+				<input  type="button" value="aa" onclick="l_case()">
+				<input  type="button" value="Aa" onclick="t_case()">	
+		
+				<br><br>		
+		
+	</fieldset>
+
+			<br><br>
+		<div   >	
+			<textarea class="center" onkeyup="abc()" id="t"  cols="90" rows="4" placeholder="Write to edit.."></textarea>
+		
+			<br><br>
+		
+			<div id="x" class="center" ></div>
+		</div>
+	</body>
+	
+	<script>
+
+	
+
+		fontFamilyArr=['Arial','Comic Sans MS','Courier New','Didot','Garamond','Helvetica','Impact','Times New Roman','Trebuchet MS','Verdana'];
+		fontColorArr=['red','blue','green','orange','yellow','indigo','violet'];
+		
+		var m;
+		for (m in fontFamilyArr) {
+			document.getElementById('ffamily').innerHTML+= "<option>"+fontFamilyArr[m]+"</option>";
+		
+		}
+
+		for (m in fontColorArr) {
+			document.getElementById('fcolor').innerHTML+= "<option>"+fontColorArr[m]+"</option>";
+		
+		}
+
+		for (i=5;i<36;i++) {
+			document.getElementById('fsize').innerHTML+= "<option>"+2*i+'px'+"</option>";
+			i++;
+		}
+
+		function abc(){
+			var f=document.getElementById('t').value;
+			document.getElementById('x').innerHTML=f;
+		}
+		
+		
+
+		function inputDetails(fontFamily,fontSize,fontColor){
+			this.fontFamily=fontFamily;
+			this.fontSize=fontSize;
+			this.fontColor=fontColor;
+
+
+		}
+		
+
+		inputDetails.prototype.fire =function(){
+			
+			x.style.fontFamily=this.fontFamily;
+			x.style.fontSize=this.fontSize;
+			x.style.color=this.fontColor;
+
+		}
+
+		
+		
+		
+		function demo(){
+			var ff=document.getElementById('ffamily').value
+			var fs=document.getElementById('fsize').value
+			var fc=document.getElementById('fcolor').value
+			fireDetails = new inputDetails(ff,fs,fc);
+			fireDetails.fire();
+	}
+
+		function color_code(){
+			
+			patt=/^[a-f,A-F,0-9]+$/
+			
+			var f=document.getElementById('fcc').value;
+			e=f.length;
+			if(e==0 || (e>=3&& e<=6)){
+				if(f.match(patt))
+				x.style.color="#"+f;
+			}
+			else
+				alert('please enter valid color code');
+			
+		}
+
+
+		b=false;
+		
+		function bold(){
+			if(b)
+				x.style.fontWeight='normal';
+			else
+				x.style.fontWeight='bold';
+			b=!b;
+		}
+
+		function italic(){
+			if(b)
+				x.style.fontStyle='normal';
+			else
+				x.style.fontStyle='italic'
+			b=!b;
+		}
+
+		function u_line(){
+			if(b)
+				x.style.textDecoration='none';
+			else
+				x.style.textDecoration='underline';
+			b=!b;
+			
+		}
+
+		function u_case(){
+			
+			uc=document.getElementById('t').value;
+			ucc=uc;
+			if(b)
+			document.getElementById('x').innerHTML=uc
+			else
+			document.getElementById('x').innerHTML = ucc.toUpperCase(); 
+			b=!b;
+
+		}
+
+		function l_case(){
+		
+			lc=document.getElementById('t').value;
+			lcc=lc;
+			if(b)
+			document.getElementById('x').innerHTML=lc
+			else
+			document.getElementById('x').innerHTML = lcc.toLowerCase(); 
+			b=!b;
+
+		}
+
+		function t_case(){
+
+			tc=document.getElementById('t').value;
+			tcc=tc;
+			if(b)
+			document.getElementById('x').innerHTML=tc
+			else{
+			var h=""
+			g=tcc.split(" ")
+			
+			for (m in g){
+				h+=(g[m].substr(0,1)).toUpperCase()+(g[m].substr(1)).toLowerCase()+" "
+
+			}
+			document.getElementById('x').innerHTML =h
+			
+			}
+			b=!b;
+		}
+
+	</script>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+	<head>
+           	<style>
+				.centerr {
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					padding-bottom: 20px;
+					padding-left: 4px;
+					padding-right: 4px;
+					border: 4px solid #ff8282 ;
+					width: 340px;
+				}
+						
+				.btn_classs{
+					margin: 10px;
+                    background-color: #333333;
+                    color:#333333;
+					
+				}
+                .btn_black{
+					margin: 10px;
+                    color:black
+					
+				}
+              
+				.game-title{
+					margin-top:10px;
+					color: black;
+					font-size:20px;
+					background-color: #ff8282;
+					font-weight:bold;
+				
+				}
+				
+		</style>
+		
+		<!-- Bootstrap Core CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		
+	</head>
+	<body>
+		 <br>
+		<fieldset class="centerr" id="x" >
+	
+			<div class=" panel-heading game-title  "> SHARPEN YOUR MEMORY</div>	 
+			<br>
+		
+		</fieldset>
+	
+	</body>
+	<script>
+       
+		btn_arr=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9];
+		match_arr=[];
+		matched_arr=[];
+		timer=0;
+		
+		for(i=0;i<20;i++){
+		
+			var arr_index=Math.floor(btn_arr.length*Math.random())
+			var btn_value=btn_arr[arr_index]
+
+			var input = document.createElement("input");
+			input.type = "button";
+			input.value= btn_value;
+			input.id= i;
+			input.className= " btn_classs btn btn-lg ";
+			input.setAttribute('onclick','start()')
+			
+			var field_section=document.getElementById("x")
+			field_section.appendChild(input)
+			document.body.appendChild(field_section);
+			
+			btn_arr.splice(arr_index,1);
+		}
+		
+
+		function start(){
+		
+			if(timer==0){
+				today= new Date();
+				minut=today.getMinutes();
+				sec=today.getSeconds();
+				
+				timer=1;
+			}
+			
+
+			match_arr.push(event.target.value);
+			matched_arr.push(event.target.value);
+
+			if(match_arr[0] && !match_arr[1] ){
+				 i1=event.target.id;
+				 document.getElementById(i1).disabled = true;
+                 document.getElementById(i1).setAttribute('class','btn btn-lg  btn_black')
+                 
+			}
+			else if(match_arr[0]&&match_arr[1]){
+				i2=event.target.id;
+                
+                
+                
+				if(match_arr[0]==match_arr[1]){
+					match_arr.splice(0,2);
+					document.getElementById(i1).disabled = true;
+					document.getElementById(i2).disabled = true;
+					document.getElementById(i1).setAttribute('class','btn btn-lg btn-success btn_classs')
+					document.getElementById(i2).setAttribute('class','btn btn-lg btn-success btn_classs')
+				}
+				else{
+                    
+					document.getElementById(i1).disabled = false;
+                    document.getElementById(i1).setAttribute('class','btn btn-lg  btn_classs')
+					document.getElementById(i2).setAttribute('class','btn btn-lg btn-warning  btn_black')
+					function myFunction() {
+                        document.getElementById(i2).setAttribute('class','btn btn-lg  btn_classs')
+                    }                   
+                    setTimeout(myFunction, 1000);
+					
+					matched_arr.splice(matched_arr.length-2,2);
+					match_arr.splice(0,2)
+					
+					
+				}
+
+			}
+			if(matched_arr.length==20){
+				today1= new Date();
+				minut1=today1.getMinutes();
+				sec1=today1.getSeconds();
+				
+				minut_diff=minut1-minut;
+				sec_diff=sec1-sec;
+				
+					if(sec_diff<0){
+						sec_diff=60+sec_diff;
+						minut_diff=minut_diff-1;
+					}
+
+			alert("Congratulations ! you finished the game in "+ minut_diff +" minutes and " +sec_diff+ " seconds");
+
+			}
+		}		
+			
+		
+	</script>
+	
+	
+</html>
